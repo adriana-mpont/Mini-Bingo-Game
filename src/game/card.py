@@ -26,7 +26,7 @@ class BingoCard:
 
     def display_card(self):
         """Displays the Bingo card in a grid format."""
-        print("\n🎯 Your Bingo Card 🎯")
+        print("\n Your Bingo card")
         print("-" * (self.size * 6))
         for row in self.grid:
             print(" ".join(f"{num:>4}" for num in row))
