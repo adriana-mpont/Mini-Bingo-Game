@@ -11,7 +11,7 @@ class NumberDrawer:
     def draw_number(self):
         """Draws a random number and removes it from the available pool."""
         if not self.available_numbers:
-            print("All numbers have been drawn!")
+            print(" All numbers have been drawn!")
             return None
 
         number = random.choice(list(self.available_numbers))
@@ -25,4 +25,4 @@ class NumberDrawer:
         if self.drawn_numbers:
             print(", ".join(map(str, sorted(self.drawn_numbers))))
         else:
-            print("No numbers drawn yet.")
+            print(" No numbers drawn yet.")

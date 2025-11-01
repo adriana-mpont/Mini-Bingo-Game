@@ -3,7 +3,7 @@ from ui.display import MiniBingo
 
 def main():
     """Run a minimal playable Mini Bingo session (Sprint 2 demo)."""
-    print("Welcome to Mini Bingo - Sprint 2 Demo \n")
+    print(" Welcome to Mini Bingo - Sprint 2 Demo \n")
 
     game = MiniBingo()
 

@@ -9,7 +9,7 @@ class BingoCard:
         self.grid = self._generate_card()
 
     def _generate_card(self):
-        """Generates a grid of unique random numbers between 1 – 99."""
+        """Generates a grid of unique random numbers between 1–99."""
         numbers = random.sample(range(1, self.number_range + 1), self.size ** 2)
         return [numbers[i:i + self.size] for i in range(0, len(numbers), self.size)]
 
