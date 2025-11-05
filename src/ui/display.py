@@ -47,6 +47,13 @@ class MiniBingo:
                 print("No more numbers to draw.")
                 break
             print(f"➡️ Drawn number: {number}")
+            
+            if self.card.mark_number(number):
+                print("Number found and marked on your card!")
+            else:
+                print("Number not on your card.")
+            
+            self.card.display_card()            
             self.drawer.display_drawn_numbers()
 
-        print("\n🏁 Game Over! Thanks for playing 🎉")
+        print("\n Thanks for playing ") 
