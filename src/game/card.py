@@ -35,7 +35,7 @@ class BingoCard:
                     return True
         return False
         
-     def display_card(self):
+    def display_card(self):
         """Displays the Bingo card in a grid format.""" 
         print("\n Your Bingo card")
         print("-" * (self.size * 6))
