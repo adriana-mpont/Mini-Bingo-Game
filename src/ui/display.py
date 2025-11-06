@@ -52,8 +52,18 @@ class MiniBingo:
                 print("Number found and marked on your card!")
             else:
                 print("Number not on your card.")
-            
-            self.card.display_card()            
+
+            self.card.display_card()
             self.drawer.display_drawn_numbers()
 
-        print("\n Thanks for playing ") 
+            # Sprint 3, backlog item 6: Check for Line/Bingo
+            if self.card.check_line():
+                print("🎉 LINE! You completed a row or column!")
+
+            if self.card.check_bingo():
+                print("🏆 BINGO! You completed the entire card!")
+                break
+
+        print("\n Thanks for playing ")
+
+

@@ -34,19 +34,39 @@ class BingoCard:
                     self.marked[i][j] = True
                     return True
         return False
-        
+
     def display_card(self):
-        """Displays the Bingo card in a grid format.""" 
+        """Displays the Bingo card in a grid format."""
         print("\n Your Bingo card")
         print("-" * (self.size * 6))
-        
+
         for i in range(self.size):
             row_display = []
             for j in range(self.size):
                 num = self.grid[i][j]
                 if self.marked[i][j]:
-                    row_display.append(f"[{num:02}]") #If number is marked
+                    row_display.append(f"[{num:02}]")  # If number is marked
                 else:
-                    row_display.append(f" {num:02} ") #If number is not marked
+                    row_display.append(f" {num:02} ")  # If number is not marked
             print(" ".join(row_display))
         print("-" * (self.size * 6))
+
+    def check_line(self) -> bool:
+        """Checks if any row or column is fully marked (a 'Line')."""
+        # Check rows
+        for row in self.marked:
+            if all(row):
+                return True
+
+        # Check columns
+        for col in range(self.size):
+            if all(self.marked[row][col] for row in range(self.size)):
+                return True
+
+        return False
+
+    def check_bingo(self) -> bool:
+        """Checks if the entire card is marked (a 'Bingo')."""
+        return all(all(row) for row in self.marked)
+
+        
