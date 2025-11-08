@@ -11,9 +11,11 @@ def main():
         game.start()  # rounds handled inside display.py for manual mode selection
 
         replay = input("\nWould you like to play another round? (Yes / No)").strip().lower()
-        if replay not in ("y", "yes"): 
-            print("The game has finished. Thank you for playing!")
+        if replay in ("y", "yes"): 
             break
+        elif replay in ("n", "no"): 
+            print("The game has finished. Thank you for playing!")
+            return 
 
 if __name__ == "__main__":
     main()
