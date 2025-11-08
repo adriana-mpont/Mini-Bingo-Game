@@ -5,12 +5,15 @@ def main():
     """Run a minimal playable Mini Bingo session (Sprint 2 demo)."""
     print(" Welcome to Mini Bingo - Sprint 2 Demo \n")
 
-    game = MiniBingo()
+    while True: 
+        game = MiniBingo()
+        # For Sprint 2: allow player to choose mode and manually advance rounds
+        game.start()  # rounds handled inside display.py for manual mode selection
 
-    # For Sprint 2: allow player to choose mode and manually advance rounds
-    game.start()  # rounds handled inside display.py for manual mode selection
-
-    print("\n Sprint 2 session finished. Thank you for playing!")
+        replay = input("\nWould you like to play another round? (Yes / No)").strip().lower()
+        if replay not in ("y", "yes"): 
+            print("The game has finished. Thank you for playing!")
+            break
 
 if __name__ == "__main__":
     main()
