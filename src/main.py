@@ -3,7 +3,8 @@ from ui.display import MiniBingo
 
 def main():
     """Run a minimal playable Mini Bingo session (Sprint 2 demo)."""
-    print(" Welcome to Mini Bingo - Sprint 2 Demo \n")
+    matches = 1
+    print(" Welcome to Mini Bingo \n")
 
     while True: 
         game = MiniBingo()
@@ -12,7 +13,8 @@ def main():
         while True:
             replay = input("\nWould you like to play another round? (Yes / No)").strip().lower()
             if replay == "yes":
-                print("\nStarting a new game...\n")
+                matches += 1
+                print(f"\nStarting match number {matches}.\nGood luck!")
                 break
             elif replay == "no":
                 print("\nThe game has finished. Thank you for playing!\n")
