@@ -1,5 +1,31 @@
 from src.game.card import BingoCard
 from src.game.draw import NumberDrawer
+from dataclasses import dataclass
+from tabulate import tabulate
+
+@dataclass
+class History: #Sprint 4, backlog item 9: Display session history
+    """We use this built-in Python module because it is useful for small classes that store data.
+     We do not have to create an __init__ because it automatically creates it.
+     Tracks the current playing session: games played, wins, and losses."""
+    games_played: int = 0
+    wins: int = 0
+    losses: int = 0
+
+    def update_history(self, win: bool):
+        """Updates the count of the games played, the number fo wins, and the number of losses"""
+        self.games_played += 1
+        if win:
+            self.wins += 1
+        else:
+            self.losses += 1
+
+    def print_summary(self):
+        """Displays the session summary in a table."""
+        data =[["Games Played", self.games_played], ["Wins", self.wins], ["Losses", self.losses]]
+        title = "📊SESSION SUMMARY"
+        print(f"\n{title}\n" + "-" * (len(title)+2))
+        print(tabulate(data, headers=["Statistic", "Count"], tablefmt = "fancy_grid"))
 
 
 class MiniBingo:
@@ -40,6 +66,8 @@ class MiniBingo:
         self.choose_mode()
         self.card.display_card()
 
+        won = False #Used to be able to update the session history
+
         for round_number in range(1, self.rounds + 1):
             input(f"\n👉 Press Enter to draw number for Round {round_number}...")
             number = self.drawer.draw_number()
@@ -62,8 +90,12 @@ class MiniBingo:
 
             if self.card.check_bingo():
                 print("🏆 BINGO! You completed the entire card!")
+                won = True
                 break
+        return won
 
         print("\n Thanks for playing ")
+
+
 
 
