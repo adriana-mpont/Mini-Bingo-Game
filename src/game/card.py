@@ -8,6 +8,10 @@ class BingoCard:
         self.number_range = number_range
         self.grid = self._generate_card()
         self.marked = [[False for _ in range(self.size)] for _ in range(self.size)]
+        # Flag to prevent repeated Line messages: Tracks if a line has already been announced
+        self.line_rows_announced = [False] * self.size
+        self.line_cols_announced = [False] * self.size
+
 
     def _generate_card(self):
         """Generates a grid of unique random numbers between 1–99."""
@@ -54,13 +58,15 @@ class BingoCard:
     def check_line(self) -> bool:
         """Checks if any row or column is fully marked (a 'Line')."""
         # Check rows
-        for row in self.marked:
-            if all(row):
+        for i, row in enumerate(self.marked):
+            if all(row) and not self.line_rows_announced[i]:
+                self.line_rows_announced[i] = True
                 return True
 
         # Check columns
-        for col in range(self.size):
-            if all(self.marked[row][col] for row in range(self.size)):
+        for j in range(self.size):
+            if all(self.marked[i][j] for i in range(self.size)) and not self.line_cols_announced[j]:
+                self.line_cols_announced[j] = True
                 return True
 
         return False
