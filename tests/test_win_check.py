@@ -53,3 +53,16 @@ def test_line_and_bingo_combined():
 
     assert card.check_line() == True
     assert card.check_bingo() == False
+
+def test_check_line_almost_full_row():
+    """A row with only 3 marked cells should not count as a line."""
+    card = BingoCard()
+    card.marked[0] = [True, True, True, False]
+    assert card.check_line() == False
+
+def test_check_line_diagonal_not_valid():
+    """Diagonal marks should not count as a line."""
+    card = BingoCard()
+    for i in range(4):
+        card.marked[i][i] = True
+    assert card.check_line() == False
