@@ -1,14 +1,16 @@
 
 from ui.display import MiniBingo
 from ui.display import History
+from ui.display import InfoTab
 
 def main():
     """Run a minimal playable Mini Bingo session (Sprint 2 demo)."""
     history = History()
+    info = InfoTab()
     matches = 1
-    print(" Welcome to Mini Bingo \n")
 
     while True: 
+        info.display()
         game = MiniBingo()
         # For Sprint 2: allow player to choose mode and manually advance rounds
         did_win = game.start() # rounds handled inside display.py for manual mode selection
