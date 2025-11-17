@@ -1,5 +1,5 @@
 
-from ui.display import MiniBingo
+from ui.gui import MiniBingoGUI
 
 def main():
     """Run a minimal playable Mini Bingo session (Sprint 2 demo)."""
@@ -13,4 +13,5 @@ def main():
     print("\n Sprint 2 session finished. Thank you for playing!")
 
 if __name__ == "__main__":
-    main()
+    app = MiniBingoGUI()
+    app.mainloop()
