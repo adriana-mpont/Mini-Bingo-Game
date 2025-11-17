@@ -1,7 +1,5 @@
 
-from ui.display import MiniBingo
-from ui.display import History
-from ui.display import InfoTab
+from ui.gui import MiniBingoGUI
 
 def main():
     """Run a minimal playable Mini Bingo session (Sprint 2 demo)."""
@@ -30,4 +28,5 @@ def main():
                 print("⚠️ Invalid input. Please type 'yes' or 'no'.")
 
 if __name__ == "__main__":
-    main()
+    app = MiniBingoGUI()
+    app.mainloop()
