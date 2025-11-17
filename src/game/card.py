@@ -7,6 +7,11 @@ class BingoCard:
         self.size = size
         self.number_range = number_range
         self.grid = self._generate_card()
+        self.marked = [[False for _ in range(self.size)] for _ in range(self.size)]
+        # Flag to prevent repeated Line messages: Tracks if a line has already been announced
+        self.line_rows_announced = [False] * self.size
+        self.line_cols_announced = [False] * self.size
+
 
     def _generate_card(self):
         """Generates a grid of unique random numbers between 1–99."""
@@ -24,10 +29,50 @@ class BingoCard:
         """Returns all numbers in a flat list."""
         return [num for row in self.grid for num in row]
 
+    def mark_number(self, number: int) -> bool:
+        """Marks the number of the card if found. 
+        Returns True if the number was present and marked, False otherwise. """
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.grid[i][j] == number:
+                    self.marked[i][j] = True
+                    return True
+        return False
+
     def display_card(self):
         """Displays the Bingo card in a grid format."""
         print("\n Your Bingo card")
         print("-" * (self.size * 6))
-        for row in self.grid:
-            print(" ".join(f"{num:>4}" for num in row))
+
+        for i in range(self.size):
+            row_display = []
+            for j in range(self.size):
+                num = self.grid[i][j]
+                if self.marked[i][j]:
+                    row_display.append(f"[{num:02}]")  # If number is marked
+                else:
+                    row_display.append(f" {num:02} ")  # If number is not marked
+            print(" ".join(row_display))
         print("-" * (self.size * 6))
+
+    def check_line(self) -> bool:
+        """Checks if any row or column is fully marked (a 'Line')."""
+        # Check rows
+        for i, row in enumerate(self.marked):
+            if all(row) and not self.line_rows_announced[i]:
+                self.line_rows_announced[i] = True
+                return True
+
+        # Check columns
+        for j in range(self.size):
+            if all(self.marked[i][j] for i in range(self.size)) and not self.line_cols_announced[j]:
+                self.line_cols_announced[j] = True
+                return True
+
+        return False
+
+    def check_bingo(self) -> bool:
+        """Checks if the entire card is marked (a 'Bingo')."""
+        return all(all(row) for row in self.marked)
+
+        

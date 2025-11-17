@@ -26,3 +26,10 @@ def test_display_drawn_numbers(capsys):
     drawer.display_drawn_numbers()
     captured = capsys.readouterr()
     assert "Numbers Drawn So Far:" in captured.out
+
+def test_draw_after_exhaustion_returns_none():
+    drawer = NumberDrawer()
+    for _ in range(99):
+        drawer.draw_number()
+    assert drawer.draw_number() is None, "After all draws, should return None"
+

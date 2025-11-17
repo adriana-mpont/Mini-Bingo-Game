@@ -1,6 +1,52 @@
 from src.game.card import BingoCard
 from src.game.draw import NumberDrawer
+from dataclasses import dataclass
+from tabulate import tabulate
 
+@dataclass
+class History: #Sprint 4, backlog item 9: Display session history
+    """We use this built-in Python module because it is useful for small classes that store data.
+     We do not have to create an __init__ because it automatically creates it.
+     Tracks the current playing session: games played, wins, and losses."""
+    games_played: int = 0
+    wins: int = 0
+    losses: int = 0
+
+    def update_history(self, win: bool):
+        """Updates the count of the games played, the number fo wins, and the number of losses"""
+        self.games_played += 1
+        if win:
+            self.wins += 1
+        else:
+            self.losses += 1
+
+    def print_summary(self):
+        """Displays the session summary in a table."""
+        data =[["Games Played", self.games_played], ["Wins", self.wins], ["Losses", self.losses]]
+        title = "📊SESSION SUMMARY"
+        print(f"\n{title}\n" + "-" * (len(title)+2))
+        print(tabulate(data, headers=["Statistic", "Count"], tablefmt = "fancy_grid"))
+
+class InfoTab:
+    """We want to display the rules to follow the game."""
+
+    def __init__(self):
+        self.rules_text = [
+            "MINI BINGO RULES",
+            "---------------------------",
+            "• The game uses a 4x4 Bingo card.",
+            "• Numbers are drawn from 1 to 99.",
+            "• Numbers appear one at a time.",
+            "• A LINE is completed when an entire row or column is marked.",
+            "• BINGO is achieved when all numbers are marked.",
+            "• You may choose manual or automatic mode."
+        ]
+
+    def display(self):
+        print("\n=== INFORMATION TAB ===\n")
+        for line in self.rules_text:
+            print(line)
+        print("=======================\n")
 
 class MiniBingo:
     """Main interface that connects the card and number drawer."""
@@ -9,6 +55,7 @@ class MiniBingo:
         self.card = BingoCard()
         self.drawer = NumberDrawer()
         self.rounds = 0
+        self.info = InfoTab()
 
     def choose_mode(self):
         """Lets the player choose one of three predefined modes."""
@@ -38,7 +85,11 @@ class MiniBingo:
         """Starts the Bingo game with chosen mode and manual round progression."""
         print("\n🧩 Welcome to Mini Bingo 🧩")
         self.choose_mode()
+
+        self.info.display()
         self.card.display_card()
+
+        won = False #Used to be able to update the session history
 
         for round_number in range(1, self.rounds + 1):
             input(f"\n👉 Press Enter to draw number for Round {round_number}...")
@@ -47,6 +98,28 @@ class MiniBingo:
                 print("No more numbers to draw.")
                 break
             print(f"➡️ Drawn number: {number}")
+            
+            if self.card.mark_number(number):
+                print("Number found and marked on your card!")
+            else:
+                print("Number not on your card.")
+
+            self.info.display()
+
+            self.card.display_card()
             self.drawer.display_drawn_numbers()
 
-        print("\n🏁 Game Over! Thanks for playing 🎉")
+            # Sprint 3, backlog item 6: Check for Line/Bingo
+            if self.card.check_line():
+                print("🎉 LINE! You completed a row or column!")
+
+            if self.card.check_bingo():
+                print("🏆 BINGO! You completed the entire card!")
+                won = True
+                break
+        return won
+
+        print("\n Thanks for playing ")
+
+
+
