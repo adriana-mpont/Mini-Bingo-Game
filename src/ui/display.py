@@ -38,8 +38,7 @@ class InfoTab:
             "• Numbers are drawn from 1 to 99.",
             "• Numbers appear one at a time.",
             "• A LINE is completed when an entire row or column is marked.",
-            "• BINGO is achieved when all numbers are marked.",
-            "• You may choose manual or automatic mode."
+            "• BINGO is achieved when all numbers are marked."
         ]
 
     def display(self):
