@@ -121,7 +121,7 @@ class MiniBingoGUI(tk.Tk):
 
         modes = [
             ("Competitive", 30, "#ff8a65"),
-            ("Normal", 45, "#4db6ac"),
+            ("Normal", 70, "#4db6ac"),
             ("Easy", 99, "#9575cd")
         ]
 

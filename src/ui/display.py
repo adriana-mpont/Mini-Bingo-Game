@@ -75,8 +75,8 @@ class MiniBingo:
                 print("\n🏁 Mode selected: Competitive (30 rounds)")
                 break
             elif choice == "2":
-                self.rounds = 45
-                print("\n🎯 Mode selected: Normal (45 rounds)")
+                self.rounds = 70
+                print("\n🎯 Mode selected: Normal (70 rounds)")
                 break
             elif choice == "3":
                 self.rounds = 99
