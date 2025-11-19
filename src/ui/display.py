@@ -35,7 +35,8 @@ class InfoTab:
             "MINI BINGO RULES",
             "---------------------------",
             "• The game uses a 4x4 Bingo card.",
-            "• Numbers are drawn from 1 to 99.",
+            "• In competitive and easy modes, numbers are drawn from 1 to 99.",
+            "• In normal mode, numbers are drawn from 1 to 99.",
             "• Numbers appear one at a time.",
             "• A LINE is completed when an entire row or column is marked.",
             "• BINGO is achieved when all numbers are marked."

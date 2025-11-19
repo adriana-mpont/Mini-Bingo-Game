@@ -10,6 +10,7 @@ class MiniBingoGUI(tk.Tk):
         self.title("Mini Bingo Game")
         self.configure(bg="#e0f7fa")
         self.resizable(False, False)
+        self.max_number = 99
 
         # --- Game state ---
         self.card = None
@@ -41,10 +42,8 @@ class MiniBingoGUI(tk.Tk):
         self.drawn_history_frame.pack(pady=10, fill="x")
         self.drawn_history_labels = []
 
-        # Show intro and mode selection at start
         self.show_intro()
 
-    # --- Intro popup with InfoTab rules ---
     def show_intro(self):
         intro_win = tk.Toplevel(self)
         intro_win.title("Welcome to Mini Bingo")
@@ -69,28 +68,29 @@ class MiniBingoGUI(tk.Tk):
         mode_win.grab_set()
 
         tk.Label(mode_win, text="Choose Game Mode", font=("Arial", 16, "bold"), bg="#b2ebf2").pack(pady=10)
+        modes = [
+            ("Competitive", 30, 99, "#ff8a65"),
+            ("Normal", 45, 60, "#4db6ac"),  # <-- Normal mode now draws 1–60
+            ("Easy", 99, 99, "#9575cd")
+        ]
 
-        def set_mode(rounds):
+        def set_mode(rounds, max_num):
             self.rounds = rounds
+            self.max_number = max_num
             mode_win.destroy()
             self.start_game()
 
-        modes = [
-            ("Competitive", 30, "#ff8a65"),
-            ("Normal", 45, "#4db6ac"),
-            ("Easy", 99, "#9575cd")
-        ]
-        for mode_name, rounds, color in modes:
+        for mode_name, rounds, max_num, color in modes:
             frame = tk.Frame(mode_win, bg=color, bd=2, relief="ridge", padx=10, pady=10)
             frame.pack(pady=8, fill="x", padx=20)
-            tk.Label(frame, text=f"{mode_name} ({rounds} rounds)", font=("Arial", 14, "bold"), bg=color, fg="white").pack(side="left", padx=5)
+            tk.Label(frame, text=f"{mode_name} ({rounds} rounds)", font=("Arial", 14, "bold"), bg=color,
+                     fg="white").pack(side="left", padx=5)
             tk.Button(frame, text="Select", bg="white", fg=color, font=("Arial", 12, "bold"),
-                      command=lambda r=rounds: set_mode(r)).pack(side="right", padx=5)
+                      command=lambda r=rounds, m=max_num: set_mode(r, m)).pack(side="right", padx=5)
 
-    # --- Start game ---
     def start_game(self):
-        self.card = BingoCard()
-        self.drawer = NumberDrawer()
+        self.card = BingoCard(number_range=self.max_number)
+        self.drawer = NumberDrawer(max_number=self.max_number)
         self.marked = set()
         self.completed_lines = set()
         self.current_round = 0
