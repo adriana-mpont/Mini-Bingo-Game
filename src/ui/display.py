@@ -3,17 +3,16 @@ from src.game.draw import NumberDrawer
 from dataclasses import dataclass
 from tabulate import tabulate
 
+
 @dataclass
-class History: #Sprint 4, backlog item 9: Display session history
-    """We use this built-in Python module because it is useful for small classes that store data.
-     We do not have to create an __init__ because it automatically creates it.
-     Tracks the current playing session: games played, wins, and losses."""
+class History:
+    """Tracks the current playing session: games played, wins, and losses."""
     games_played: int = 0
     wins: int = 0
     losses: int = 0
 
     def update_history(self, win: bool):
-        """Updates the count of the games played, the number fo wins, and the number of losses"""
+        """Updates the count of games played, wins, and losses."""
         self.games_played += 1
         if win:
             self.wins += 1
@@ -22,21 +21,24 @@ class History: #Sprint 4, backlog item 9: Display session history
 
     def print_summary(self):
         """Displays the session summary in a table."""
-        data =[["Games Played", self.games_played], ["Wins", self.wins], ["Losses", self.losses]]
+        data = [
+            ["Rounds Played", self.games_played],
+            ["Wins", self.wins],
+            ["Losses", self.losses]
+        ]
         title = "📊SESSION SUMMARY"
-        print(f"\n{title}\n" + "-" * (len(title)+2))
-        print(tabulate(data, headers=["Statistic", "Count"], tablefmt = "fancy_grid"))
+        print(f"\n{title}\n" + "-" * (len(title) + 2))
+        print(tabulate(data, headers=["Statistic", "Count"], tablefmt="fancy_grid"))
 
 class InfoTab:
-    """We want to display the rules to follow the game."""
+    """Displays the rules to follow the game."""
 
     def __init__(self):
         self.rules_text = [
             "MINI BINGO RULES",
             "---------------------------",
             "• The game uses a 4x4 Bingo card.",
-            "• In competitive and easy modes, numbers are drawn from 1 to 99.",
-            "• In normal mode, numbers are drawn from 1 to 99.",
+            "• Numbers are drawn from 1 to 99.",
             "• Numbers appear one at a time.",
             "• A LINE is completed when an entire row or column is marked.",
             "• BINGO is achieved when all numbers are marked."
@@ -48,8 +50,9 @@ class InfoTab:
             print(line)
         print("=======================\n")
 
+
 class MiniBingo:
-    """Main interface that connects the card and number drawer."""
+    """Console interface that connects the card and number drawer."""
 
     def __init__(self):
         self.card = BingoCard()
@@ -66,6 +69,7 @@ class MiniBingo:
 
         while True:
             choice = input("Select a mode (1, 2, or 3): ").strip()
+
             if choice == "1":
                 self.rounds = 30
                 print("\n🏁 Mode selected: Competitive (30 rounds)")
@@ -85,31 +89,30 @@ class MiniBingo:
         """Starts the Bingo game with chosen mode and manual round progression."""
         print("\n🧩 Welcome to Mini Bingo 🧩")
         self.choose_mode()
-
         self.info.display()
         self.card.display_card()
 
-        won = False #Used to be able to update the session history
+        won = False
 
         for round_number in range(1, self.rounds + 1):
             input(f"\n👉 Press Enter to draw number for Round {round_number}...")
+
             number = self.drawer.draw_number()
             if number is None:
                 print("No more numbers to draw.")
                 break
+
             print(f"➡️ Drawn number: {number}")
-            
+
             if self.card.mark_number(number):
                 print("Number found and marked on your card!")
             else:
                 print("Number not on your card.")
 
             self.info.display()
-
             self.card.display_card()
             self.drawer.display_drawn_numbers()
 
-            # Sprint 3, backlog item 6: Check for Line/Bingo
             if self.card.check_line():
                 print("🎉 LINE! You completed a row or column!")
 
@@ -117,9 +120,5 @@ class MiniBingo:
                 print("🏆 BINGO! You completed the entire card!")
                 won = True
                 break
-        return won
 
-        print("\n Thanks for playing ")
-
-
-
+        print("\nThanks for playing")
