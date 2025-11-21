@@ -1,13 +1,16 @@
 import tkinter as tk
+from tkinter import Toplevel, Label
 from tkinter import messagebox
 from src.game.card import BingoCard
 from src.game.draw import NumberDrawer
 from src.ui.display import InfoTab
-
+import random
+import time
 
 class MiniBingoGUI(tk.Tk):
     def __init__(self):
         super().__init__()
+        self.state('zoomed')
 
         self.title("Mini Bingo Game")
         self.configure(bg="#e0f7fa")
@@ -64,6 +67,48 @@ class MiniBingoGUI(tk.Tk):
 
         # Show intro
         self.show_intro()
+
+    def roulette_animation(self):
+        """Show fast random numbers before revealing the real drawn number"""
+        # Limit max number dynamically from drawer
+        max_number = 99
+        for _ in range(15):  # 15 steps of animation
+            temp_num = random.randint(1, max_number)
+            self.drawn_label.config(text=str(temp_num))
+            self.update()
+            time.sleep(0.05)  # fast animation
+
+    # --- Sprint 6: Backlog Item 15 ---
+    def show_effect(self, achievement):
+        """Display floating WELL DONE message for LINE or BINGO"""
+        popup = tk.Toplevel(self)
+        popup.overrideredirect(True)
+        popup.configure(bg="#ffffff")
+        popup.attributes("-topmost", True)
+
+        msg = f"WELL DONE! You got a {achievement}!"
+        label = tk.Label(popup, text=msg, font=("Arial", 24, "bold"), fg="#ff5733", bg="#ffffff")
+        label.pack(padx=20, pady=20)
+
+        # Center popup
+        popup.update_idletasks()
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        x = (screen_width // 2) - (popup.winfo_width() // 2)
+        y = (screen_height // 2) - (popup.winfo_height() // 2)
+        popup.geometry(f"+{x}+{y}")
+
+        # Pause 6 seconds before fading out
+        popup.after(4000, lambda: self.fade_popup(popup))
+
+    def fade_popup(self, popup, step=0):
+        """Fade-out animation over ~1 second"""
+        if step > 20:
+            popup.destroy()
+            return
+        alpha = 1 - (step / 20)
+        popup.attributes("-alpha", alpha)
+        popup.after(50, lambda: self.fade_popup(popup, step + 1))
 
     # --- Intro popup with InfoTab rules ---
     def show_intro(self):
@@ -195,50 +240,39 @@ class MiniBingoGUI(tk.Tk):
             return
 
         if self.current_round >= self.rounds:
-            messagebox.showinfo("Game Over", f"Reached maximum rounds ({self.rounds})!")
             self.end_round()
             return
 
+        # Roulette animation
+        self.roulette_animation()
+
+        # Draw real number
         number = self.drawer.draw_number()
-
         if number is None:
-            messagebox.showinfo("Game Over", "No more numbers to draw!")
             self.end_round()
             return
 
-        self.current_round += 1
+        self.current_round += 1  # increment AFTER checking max rounds
+
+        # Update main display
         self.drawn_label.config(text=str(number))
 
-        # Add to history
-        lbl = tk.Label(
-            self.drawn_history_frame,
-            text=str(number),
-            font=("Arial", 12, "bold"),
-            bg="#ffffff",
-            fg="#333333",
-            bd=1,
-            relief="solid",
-            width=4
-        )
-        lbl.pack(side="left", padx=2)
-        self.drawn_history_labels.append(lbl)
-
-        # Mark on card
+        # Mark number on card
         for r, row in enumerate(self.card.grid):
             for c, num in enumerate(row):
                 if num == number:
                     self.card_labels[r][c].config(bg="#81c784", fg="white")
                     self.marked.add(num)
 
-        # Check line
+        # Check Line
         if self.check_line():
-            self.total_lines += 1
-            messagebox.showinfo("LINE!", f"LINE completed! Total lines: {self.total_lines}")
+            self.show_effect("LINE")
 
-        # Check bingo
+        # Check Bingo
         if self.check_bingo():
             self.bingo_achieved = True
-            messagebox.showinfo("BINGO!", "BINGO! You won!")
+            self.show_effect("BINGO")
+            self.draw_btn.config(state=tk.DISABLED)
             self.end_round()
 
     def check_line(self):
@@ -272,11 +306,10 @@ class MiniBingoGUI(tk.Tk):
     # --- End round popup ---
     def end_round(self):
         self.draw_btn.config(state=tk.DISABLED)
-
         summary = (
             f"Round summary:\n"
             f"- Rounds played: {self.current_round}\n"
-            f"- Lines: {self.total_lines}\n"
+            f"- Lines: {len(self.completed_lines)}\n"
             f"- Bingo: {'Yes' if self.bingo_achieved else 'No'}"
         )
 
