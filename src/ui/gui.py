@@ -68,7 +68,7 @@ class MiniBingoGUI(tk.Tk):
             self,
             text="Draw Number",
             font=("Arial", 14, "bold"),
-            fg="white",
+            fg="black",
             bg="#ffab91",
             activebackground="#ff7043",
             relief="raised",
@@ -78,6 +78,23 @@ class MiniBingoGUI(tk.Tk):
             state=tk.DISABLED
         )
         self.draw_btn.pack(pady=10)
+
+        self.rules_btn = tk.Button(
+            self,
+            text="Show Rules",
+            font=("Arial", 12, "bold"),
+            fg="black",  # text color
+            bg="#4db6ac",  # button background
+            activeforeground="black",  # text color when pressed
+            activebackground="#26a69a",  # background when pressed
+            relief="raised",
+            bd=3,
+            width=20,
+            command=self.show_rules
+        )
+        self.rules_btn.pack(pady=5)
+
+        self.rules_btn.pack(pady=5)
 
         # Show intro
         self.show_intro()
@@ -90,6 +107,40 @@ class MiniBingoGUI(tk.Tk):
             self.drawn_label.config(text=str(temp_num))
             self.update()
             time.sleep(0.05)
+
+    def show_rules(self):
+        """Display the game rules in a popup."""
+        rules_win = tk.Toplevel(self)
+        rules_win.title("Game Rules")
+        rules_win.geometry("400x300")
+        rules_win.configure(bg="#b2ebf2")
+        rules_win.grab_set()  # Focus on the rules window
+
+        tk.Label(
+            rules_win,
+            text="Mini Bingo Rules",
+            font=("Arial", 16, "bold"),
+            bg="#b2ebf2"
+        ).pack(pady=10)
+
+        rules_text = "\n".join(InfoTab().rules_text)
+        tk.Label(
+            rules_win,
+            text=rules_text,
+            font=("Arial", 12),
+            bg="#b2ebf2",
+            justify="left",
+            wraplength=380
+        ).pack(padx=10, pady=10)
+
+        tk.Button(
+            rules_win,
+            text="Close",
+            font=("Arial", 12, "bold"),
+            bg="#4db6ac",
+            fg="black",
+            command=rules_win.destroy
+        ).pack(pady=10)
 
     def show_effect(self, achievement):
         """Display floating WELL DONE message for LINE or BINGO"""
