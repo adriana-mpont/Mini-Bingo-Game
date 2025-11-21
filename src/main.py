@@ -22,6 +22,7 @@ def main():
                 break
             elif replay == "no":
                 history.print_summary()
+                history.save()
                 print("\nThe game has finished. Thank you for playing!\n")
                 return
             else:
