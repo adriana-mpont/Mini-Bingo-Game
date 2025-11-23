@@ -1,15 +1,8 @@
 FROM python:3.11-slim
 
-#then we make sure that we do not keep downloaded packages in the container as it uses a lot of space and provides no benefit to having it in the container. 
 ENV PYTHONUNBUFFERED=1 \
     PIP--NO_CACHE_DIR=1
 
-# Install Tkinter (GUI) system dependencies
-RUN apt-get update && \
-    apt-get install -y python3-tk tk && \
-    rm -rf /var/lib/apt/lists/*
-
-#set the working directory inside the container 
 WORKDIR /mini_bingo_app
 
 #copy the dependency list to the container in mini_bingo_app/requirements.txt
