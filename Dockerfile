@@ -1,4 +1,4 @@
-FROM python:3.11.9-slim
+ FROM python:3.11.9-slim
 
 ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
@@ -15,4 +15,4 @@ RUN mkdir -p /app/data
 
 ENV HISTORY_DIR=/app/data
 
-CMD ["python", "src/main.py"]
+CMD ["python", "-m", "src/main.py"]
