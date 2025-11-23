@@ -6,12 +6,12 @@ from src.ui.display import MiniBingo
 def test_mode_selection():
     #Creating a dictionary mapping the different mode names to their expected number of rounds.
     modes = {"Competitive": 30, "Normal": 45, "Easy": 99}
-    #Creating another dictionary mapping the different mode names to their user input (number through which the user choses the mode).
+    #Creating another dictionary mapping the different mode names to their user input (number through which the user chooses the mode).
     mode_inputs = {"Competitive": "1", "Normal": "2", "Easy": "3"}
 
     #Creating a loop through each game mode, to test them all.
     for mode_name, expected_rounds in modes.items():
-        #Creating a new mini bingo game instance
+        #Creating a new mini bingo game instance.
         game = MiniBingo()
         #Simulating input(), so that the game receives the correct selection without the user typing.
         with patch("builtins.input", return_value=mode_inputs[mode_name]):
