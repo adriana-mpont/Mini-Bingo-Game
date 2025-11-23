@@ -21,7 +21,7 @@ def test_numbers_unique():
     #Failing the test if duplicates are detected when comparing each number in the list. 
     assert len(flat_list) == len(set(flat_list)), "Card numbers are not unique"
 
-#Defining a test function to check that every number on the card is within the rang 1 to 99. 
+#Defining a test function to check that every number on the card is within the range 1 to 99. 
 def test_numbers_in_range():
     """All numbers must be between 1 and 99."""
     #Creating a new bingo card instance.
@@ -50,7 +50,7 @@ def test_card_starts_unmarked():
     """All cells should start unmarked"""
     #Creating a new bingo card instance.
     card = BingoCard()
-    #Creating a loop throuch each row of the marked state grid.
+    #Creating a loop through each row of the marked state grid.
     for row in card.marked:
         #Failing the test if there is a cell with the value True (marked). 
         assert all(not cell for cell in row), "Card starts with marked cells"
@@ -84,7 +84,7 @@ def test_mark_number_ignores_missing_number():
     card = BingoCard()
     #Copying the matrix of the original marked state of the card. 
     before = [row.copy() for row in card.marked]
-    #Attmpting to mark an invalid number, that is not present on the card. 
+    #Attempting to mark an invalid number, that is not present on the card. 
     card.mark_number(200)  #Out of range / Not in card
     #Failing the test if the marked state has changed.
     assert card.marked == before, "Card changed even though number not found"
@@ -114,9 +114,9 @@ def test_display_card_shows_marked_numbers(capsys):
     target = card.grid[0][0]
     #Calling the mark_number() method to mark the target number.
     card.mark_number(target)
-    #Displaying the card card to console. 
+    #Displaying the card to console. 
     card.display_card()
     #Capturing printed output from the display_card().
     captured = capsys.readouterr()
-    #Failing the test if the marked number doean't appear surrounded by brackets [ ].
+    #Failing the test if the marked number doesn't appear surrounded by brackets [ ].
     assert "[" in captured.out and "]" in captured.out, "Marked numbers not displayed properly"
