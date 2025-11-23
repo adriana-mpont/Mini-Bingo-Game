@@ -1,7 +1,13 @@
+import json
 from src.game.card import BingoCard
 from src.game.draw import NumberDrawer
 from dataclasses import dataclass
 from tabulate import tabulate
+from pathlib import Path
+import os
+
+HISTORY_DIR = Path(os.environ.get("HISTORY_DIR", "data"))
+HISTORY_FILE = HISTORY_DIR / "history.json"
 
 
 @dataclass
@@ -44,6 +50,13 @@ class History:
         print(f"\n{title}\n" + "-" * (len(title) + 2))
         #Displaying the summary of the results in a formatted grid style.
         print(tabulate(data, headers=["Statistic", "Count"], tablefmt="fancy_grid"))
+
+    def save(self):
+        """Save the history to a file in a Python dictionary format for the Docker volume.
+        With variables in mkdir() we ensure that the directory is created/exists, so that we do not encounter nay errors """
+        HISTORY_DIR.mkdir(parents=True, exist_ok=True)
+        with HISTORY_FILE.open("w", encoding="utf-8") as f:
+            json.dump(asdict(self), f, indent=2)
 
 #Defining a class named InfoTab, which displays the rules of the game.
 class InfoTab:

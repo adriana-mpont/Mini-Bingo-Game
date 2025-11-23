@@ -41,6 +41,7 @@ def main():
             elif replay == "no":
                 #Printing the final  summary of all recorded matches.
                 history.print_summary()
+                history.save()
                 #Displaying a closing message for the eng of the game session.
                 print("\nThe game has finished. Thank you for playing!\n")
                 #Exiting the main() function, and ending the program.
