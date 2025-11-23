@@ -13,16 +13,16 @@ class MiniBingoGUI(tk.Tk):
     def __init__(self):
         #Initializing the Tk superclass, setting up the root window.
         super().__init__()
-        #Maximizing the window to full screen
+        #Maximizing the window to full screen.
         self.state('zoomed')
         #Setting the text for the window title.
         self.title("Mini Bingo Game")
         #Setting the default background color of the main window. 
         self.configure(bg="#e0f7fa")
-        #Disabling resizing the window in both width and height
+        #Disabling resizing the window in both width and height.
         self.resizable(False, False)
 
-        # --- Game state ---
+        #Game state
         #Creating a placeholder for the current bingo card instance (when game starts). 
         self.card = None
         #Creating a placeholder for the number drawer instance (when game starts).
@@ -35,7 +35,7 @@ class MiniBingoGUI(tk.Tk):
         self.marked = set()
         #Storing the completed rows/columns on the user's card. 
         self.completed_lines = set()
-        #Holding references to each lable widget representing the card cells. 
+        #Holding references to each label widget representing the card cells. 
         self.card_labels = []
         #Storing the total number of lines the player has completed on the card.
         self.total_lines = 0
@@ -45,15 +45,15 @@ class MiniBingoGUI(tk.Tk):
         # --- UI widgets ---
         #Creating a visible frame that will contain the bingo card grid. 
         self.card_frame = tk.Frame(self, bg="#ffffff", bd=2, relief="solid")
-        #Placing the frame in the window vertical padding spacing. 
+        #Placing the frame in the window vertical padding space. 
         self.card_frame.pack(pady=20)
 
-        #Crating a frame to display the most recently drawn number. 
+        #Creating a frame to display the most recently drawn number. 
         self.drawn_frame = tk.Frame(self, bg="#b3e5fc", bd=2, relief="ridge", padx=10, pady=10)
         #Placing the frame in the window with vertical padding, stretching horizontally. 
         self.drawn_frame.pack(pady=10, fill="x")
 
-        #Labling widget that shows the latest drawn number in large text
+        #Labeling widget that shows the latest drawn number in large text.
         self.drawn_label = tk.Label(
             self.drawn_frame,
             text="--",
@@ -63,7 +63,7 @@ class MiniBingoGUI(tk.Tk):
             width=4,
             height=2
         )
-        #Placing the lable inside the frame in the window with a small margin.
+        #Placing the labele inside the frame in the window with a small margin.
         self.drawn_label.pack(pady=5)
 
         #Creating a scrollable container frame for drawn numbers history.
@@ -73,7 +73,7 @@ class MiniBingoGUI(tk.Tk):
 
         #Enabling scrolling content horizontally (with a fixed displayed height).
         self.drawn_history_canvas = tk.Canvas(self.drawn_history_container, bg="#e0f7fa", height=60)
-        #Creating a scrollbar to control horizontal movement
+        #Creating a scrollbar to control horizontal movement.
         self.scrollbar = tk.Scrollbar(self.drawn_history_container, orient="horizontal", command=self.drawn_history_canvas.xview)
         #Creating an actual inner frame that will hold number labels. 
         self.scrollable_frame = tk.Frame(self.drawn_history_canvas, bg="#e0f7fa")
@@ -114,7 +114,7 @@ class MiniBingoGUI(tk.Tk):
         #Placing the button in the window with spacing. 
         self.draw_btn.pack(pady=10)
 
-        #Creating a botton for opening the rules pop-up window (clicking displays the rules window).
+        #Creating a button for opening the rules pop-up window (clicking displays the rules window).
         self.rules_btn = tk.Button(
             self,
             text="Show Rules",
@@ -131,14 +131,14 @@ class MiniBingoGUI(tk.Tk):
         #Placing the button in the window with padding. 
         self.rules_btn.pack(pady=5)
 
-        # Show intro
+        #Show intro
         #Immediately opening an intro pop-up window when the game starts.
         self.show_intro()
 
-    #Defining a method to show a fast anumated number preview before a real draw.
+    #Defining a method to show a fast animated number preview before a real draw.
     def roulette_animation(self):
         """Show fast random numbers before revealing the real drawn number"""
-        #Creating a variable to tore the maximum number that can be shown in the animation (max number drawable). 
+        #Creating a variable to store the maximum number that can be shown in the animation (max number drawable). 
         max_number = 99
         #Creating a loop that runs the animation 15 times.
         for _ in range(15):
@@ -151,7 +151,7 @@ class MiniBingoGUI(tk.Tk):
             #Briefly pausing between updates to create animation effect.
             time.sleep(0.05)
 
-    #Defining a method to display a pop-up window with the game rules
+    #Defining a method to display a pop-up window with the game rules.
     def show_rules(self):
         """Display the game rules in a popup."""
         #Creating a new small window on top of the main window.
@@ -230,7 +230,7 @@ class MiniBingoGUI(tk.Tk):
         #Begin fading out the pop-up after 4 seconds.
         popup.after(4000, lambda: self.fade_popup(popup))
 
-    #Defining a method to handle gradual disappearing of the pop-up
+    #Defining a method to handle gradual disappearing of the pop-up.
     def fade_popup(self, popup, step=0):
         #Checking if enough fade steps are done.
         if step > 20:
@@ -247,7 +247,7 @@ class MiniBingoGUI(tk.Tk):
 
     #Defining a method toshow welcome instructions when the game starts.
     def show_intro(self):
-        #Creating the pop-up window
+        #Creating the pop-up window.
         intro_win = tk.Toplevel(self)
         #Setting the pop-up title.
         intro_win.title("Welcome to Mini Bingo")
@@ -255,7 +255,7 @@ class MiniBingoGUI(tk.Tk):
         intro_win.geometry("400x300")
         #Setting the pop-up background color.
         intro_win.configure(bg="#b2ebf2")
-        #Locking focus to this intro table
+        #Locking focus to this intro table.
         intro_win.grab_set()
 
         #Adding the title label.
@@ -271,7 +271,7 @@ class MiniBingoGUI(tk.Tk):
 
     #Defining a method to display the available game modes.
     def show_mode_selection(self):
-        #Creating the mode selection window
+        #Creating the mode selection window.
         mode_win = tk.Toplevel(self)
         #Setting the window title.
         mode_win.title("Choose Game Mode")
@@ -316,7 +316,7 @@ class MiniBingoGUI(tk.Tk):
     def start_game(self):
         #Creating a new bingo card object.
         self.card = BingoCard()
-        #Creating a new number drawer object (tracking the numebr that have been drawn).
+        #Creating a new number drawer object (tracking the number that have been drawn).
         self.drawer = NumberDrawer()
         #Creating a set of numbers that are marked on the user's card.
         self.marked = set()
@@ -329,7 +329,7 @@ class MiniBingoGUI(tk.Tk):
         #Creating a flag indicating whether a full bingo has been achieved in this game.
         self.bingo_achieved = False
 
-        # Reset drawn history
+        #Reset drawn history
         #Creating a loop through all history labels currently on screen.
         for widget in self.scrollable_frame.winfo_children():
             #Removing each widget from GUI.
@@ -344,12 +344,12 @@ class MiniBingoGUI(tk.Tk):
 
     #Defining a method to draw the numebrs of the bingo card in the GUI grid. 
     def display_card(self):
-        #Creating a loop through every widhget inside self.card_frame.
+        #Creating a loop through every widget inside self.card_frame.
         for widget in self.card_frame.winfo_children():
             #Deleting each old label. 
             widget.destroy()
 
-        #Creating a matrix storing label widgets for each numebr cell. 
+        #Creating a matrix storing label widgets for each number cell. 
         self.card_labels = []
         #Creating a loop over each row of the card numbers. 
         for r, row in enumerate(self.card.grid):
@@ -368,7 +368,7 @@ class MiniBingoGUI(tk.Tk):
 
     #Defining a method to update the sidebar list showing all numbers drawn.
     def update_drawn_history(self, number):
-        #Creating a small label for the new drawn numebr. 
+        #Creating a small label for the new drawn number.
         lbl = tk.Label(self.scrollable_frame, text=str(number), font=("Arial", 12, "bold"), bg="#e0f7fa", fg="#000000", width=4, relief="ridge", bd=1)
         #Placing the label horizontally in the scrollable frame.
         lbl.pack(side="left", padx=2, pady=2)
@@ -406,14 +406,14 @@ class MiniBingoGUI(tk.Tk):
         #Creating a loop through all card cell values (all rows and all numbers). 
         for r, row in enumerate(self.card.grid):
             for c, num in enumerate(row):
-                #Checking if the cell matches the drawn numebr.
+                #Checking if the cell matches the drawn number.
                 if num == number:
                     #In this case, changing its appearance to mark it visually. 
                     self.card_labels[r][c].config(bg="#81c784", fg="white")
                     #Recording this marked number logically. 
                     self.marked.add(num)
 
-        #Checking whether the last draw completed a new horixontal/vertical line.
+        #Checking whether the last draw completed a new horizontal/vertical line.
         if self.check_line():
             #In this case, displaying the LINE celebration message.
             self.show_effect("LINE")
@@ -446,7 +446,7 @@ class MiniBingoGUI(tk.Tk):
             if all(self.card.grid[r][c] in self.marked for c in range(size)):
                 #In this case, registering this row as completed.
                 self.completed_lines.add(r)
-                #Indicating a new line was found
+                #Indicating a new line was found.
                 new_line = True
 
         # Check columns
@@ -462,10 +462,10 @@ class MiniBingoGUI(tk.Tk):
             if all(self.card.grid[r][c] in self.marked for r in range(size)):
                 #In this case, registering this column as completed.
                 self.completed_lines.add(col_id)
-                #Indicating a new line was found
+                #Indicating a new line was found.
                 new_line = True
 
-        #Returnin whether any new completed line was found. 
+        #Returning whether any new completed line was found. 
         return new_line
 
     #Defining a method to check if all the numbers on the card have been marked. 
@@ -508,5 +508,5 @@ class MiniBingoGUI(tk.Tk):
 if __name__ == "__main__":
     #Creating the main window.
     app = MiniBingoGUI()
-    #ENtering the Tkinter event loop to display and run the GUI
+    #Entering the Tkinter event loop to display and run the GUI.
     app.mainloop()
