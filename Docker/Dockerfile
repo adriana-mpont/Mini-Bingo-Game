@@ -1,7 +1,5 @@
-#sets the base image
 FROM python:3.11-slim
 
-#first we are making the program to run in a smoother way (it avoids that things are displayed with delay)
 #then we make sure that we do not keep downloaded packages in the container as it uses a lot of space and provides no benefit to having it in the container. 
 ENV PYTHONUNBUFFERED=1 \
     PIP--NO_CACHE_DIR=1
