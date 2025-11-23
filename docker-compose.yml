@@ -7,7 +7,7 @@ services:
     working_dir: /app
 
     environment:
-      - PYTHONUNBUFFERED= 1
+      - PYTHONUNBUFFERED=1
       - HISTORY_DIR=/app/data
 
     volumes:
