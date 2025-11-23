@@ -12,7 +12,3 @@ services:
 
     volumes:
       - ./data:/app/data
-
-    # GUI apps do NOT need stdin_open or tty
-    stdin_open: false
-    tty: false
