@@ -8,17 +8,17 @@ from tabulate import tabulate
 #Defining a class named History as a dataclass, which automatically generates an initializer and representation.
 class History:
     """Tracks the current playing session: games played, wins, and losses."""
-    #Defining a data attribute with the values of total games played. Initializing the attribute at 0.
+    #Defining a data attribute with the value of total games played. Initializing the attribute at 0.
     games_played: int = 0
-    #Defining a data attribute with the values of number of wins. Initializing the attribute at 0.
+    #Defining a data attribute with the value of number of wins. Initializing the attribute at 0.
     wins: int = 0
-    #Defining a data attribute with the values of number of losses. Initializing the attribute at 0.
+    #Defining a data attribute with the value of number of losses. Initializing the attribute at 0.
     losses: int = 0
 
-    #Defining a method to update the game statistics
+    #Defining a method to update the game statistics.
     def update_history(self, win: bool):
         """Updates the count of games played, wins, and losses."""
-        #Incrementing the total count of completed game by 1.
+        #Incrementing the total count of completed games by 1.
         self.games_played += 1
         #Checking if the game was won.
         if win:
@@ -45,7 +45,7 @@ class History:
         #Displaying the summary of the results in a formatted grid style.
         print(tabulate(data, headers=["Statistic", "Count"], tablefmt="fancy_grid"))
 
-#Defining a class named InfoTab, which displays the rules of the game
+#Defining a class named InfoTab, which displays the rules of the game.
 class InfoTab:
     """Displays the rules to follow the game."""
 
@@ -66,7 +66,7 @@ class InfoTab:
     def display(self):
         #Printing a title for the rule section.
         print("\n=== INFORMATION TAB ===\n")
-        #Creting a loop through the rules in the list.
+        #Creating a loop through the rules in the list.
         for line in self.rules_text:
             #Printing each line. 
             print(line)
@@ -103,7 +103,7 @@ class MiniBingo:
             #Asking the player for input: select a mode. The answer is standardized: whitespaces are removed.
             choice = input("Select a mode (1, 2, or 3): ").strip()
 
-            #Checking if the user input is "1"
+            #Checking if the user input is "1".
             if choice == "1":
                 #Setting the round count to 30.
                 self.rounds = 30
@@ -121,7 +121,7 @@ class MiniBingo:
             elif choice == "3":
                 #Setting the round count to 99 (maximum number).
                 self.rounds = 99
-                #Printing the mode selected: Eary, and the number of rounds: 99 to the user.
+                #Printing the mode selected: Easy, and the number of rounds: 99 to the user.
                 print("\n🌿 Mode selected: Easy (99 rounds)")
                 break
             #Handling any other user input.
@@ -132,7 +132,7 @@ class MiniBingo:
     #Defining a method to run a full game session. 
     def start(self):
         """Starts the Bingo game with chosen mode and manual round progression."""
-        #Preinting a welcome message.
+        #Printing a welcome message.
         print("\n🧩 Welcome to Mini Bingo 🧩")
         #Calling the mode selection method.
         self.choose_mode()
