@@ -19,7 +19,7 @@ def test_check_line_vertical():
     #Manually marking the entire second column (True) to simulate completing a line.
     #Creating a loop over all 4 rows. 
     for i in range(4):
-        #Marking the second column (index 1) to form a vertical line
+        #Marking the second column (index 1) to form a vertical line.
         card.marked[i][1] = True
     #Failing the test if check_line() does not detect the completed line.
     assert card.check_line() == True
@@ -29,7 +29,7 @@ def test_check_line_none():
     """Test that no line returns False."""
     #Creating a new bingo card instance.
     card = BingoCard()
-    #Marking the numbers diagonally, so no full row or columns is created (marked).
+    #Marking the numbers diagonally, so no full row or column is created (marked).
     card.marked[0][0] = True
     card.marked[1][1] = True
     card.marked[2][2] = True
@@ -47,10 +47,10 @@ def test_check_bingo_full():
     #Failing the test if bingo is not detected as expected. 
     assert card.check_bingo() == True
 
-#Defining a test function to ensure that if the card is only partially marked, it doesn't cound as full bingo detection.
+#Defining a test function to ensure that if the card is only partially marked, it doesn't count as full bingo detection.
 def test_check_bingo_partial():
     """Test that Bingo is not detected when only part of the card is marked."""
-     #Creating a new bingo card instance.
+    #Creating a new bingo card instance.
     card = BingoCard()
     #Manually marking some cells on the card. 
     card.marked[0][0] = True
@@ -92,9 +92,9 @@ def test_check_line_diagonal_not_valid():
     """Diagonal marks should not count as a line."""
     #Creating a new bingo card instance.
     card = BingoCard()
-    Creating a loop across the grid indices.
+    #Creating a loop across the grid indices.
     for i in range(4):
         #Manually marking a diagonal from top left to bottom right.
         card.marked[i][i] = True
-    #Failing if the diagonal numbers marder are recognized as winning lines. 
+    #Failing if the diagonal numbers marked are recognized as winning lines. 
     assert card.check_line() == False
