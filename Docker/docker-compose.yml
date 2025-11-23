@@ -1,0 +1,10 @@
+version: "3"
+services:
+  mini-bingo:
+    build: .
+    container_name: mini-bingo-app
+    volumes:
+      - ./history:/app/data
+
+
+
