@@ -358,7 +358,7 @@ class MiniBingoGUI(tk.Tk):
             #Creating a loop through each number in the row.
             for c, num in enumerate(row):
                 #Creating a visual cell showing the number.
-                lbl = tk.Label(self.card_frame, text=str(num), font=("Arial", 18, "bold"), width=4, height=2, bd=2, relief="ridge", bg="#ffffff")
+                lbl = tk.Label(self.card_frame, text=str(num), font=("Arial", 18, "bold"), width=4, height=2, bd=2, relief="ridge", bg="#ffffff", fg="#000000")
                 #Placing the label in the correct grid position. 
                 lbl.grid(row=r, column=c, padx=5, pady=5)
                 #Storing the label in this row. 
