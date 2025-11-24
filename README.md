@@ -1,6 +1,6 @@
 # Mini Bingo (Terminal Game)
 
-This project is a terminal-based interactive Bingo game where a player selects a game duration mode (30 / 45 / 99 rounds) and plays through random number draws that automatically mark the card. The system detects **Line** and **Bingo** conditions in real time and the session history persists until the program is closed.
+This project is a terminal-based interactive Bingo game where a player selects a game duration mode (30 / 70 / 99 rounds) and plays through random number draws that automatically mark the card. The system detects **Line** and **Bingo** conditions in real time and the session history persists until the program is closed.
 
 ---
 
@@ -25,6 +25,7 @@ This project was organized by separating core gameplay logic from UI and test mo
 ---
 
 ## How to Run
+
 
 #### Requirements
 - Python 3 installed locally
