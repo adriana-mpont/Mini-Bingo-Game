@@ -495,11 +495,11 @@ class MiniBingoGUI(tk.Tk):
         tk.Label(replay_win, text="Play again?", font=("Arial", 12, "bold")).pack(pady=5)
 
         #Creating a YES button (clicking it destroys the result pop-up and restarts the game).
-        tk.Button(replay_win, text="Yes", font=("Arial", 12, "bold"), bg="#4db6ac", fg="black",
+        tk.Button(replay_win, text="Yes", font=("Arial", 12, "bold"), bg="#4db6ac", fg="#000000",
                   command=lambda: [replay_win.destroy(), self.start_game()]).pack(side="left", padx=30, pady=20)
 
         #Creating a NO button (clicking it destroys the result pop-up and exits the game).
-        tk.Button(replay_win, text="No", font=("Arial", 12, "bold"), bg="#ff8a65", fg="black",
+        tk.Button(replay_win, text="No", font=("Arial", 12, "bold"), bg="#ff8a65", fg="#000000",
                   command=lambda: [replay_win.destroy(), self.quit()]).pack(side="right", padx=30, pady=20)
 
 
