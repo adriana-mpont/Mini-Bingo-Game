@@ -1,6 +1,8 @@
-# Mini Bingo (Terminal Game)
+# Mini Bingo (Terminal version and GUI version Game)
 
 This project is a terminal-based interactive Bingo game where a player selects a game duration mode (30 / 70 / 99 rounds) and plays through random number draws that automatically mark the card. The system detects **Line** and **Bingo** conditions in real time and the session history persists until the program is closed.
+
+There is also the availability of running locally a GUI version of the Mini Bingo game for clearer visuals. The functionality remains the same as in the terminal version.
 
 ---
 
@@ -25,9 +27,17 @@ This project was organized by separating core gameplay logic from UI and test mo
 ---
 
 ## How to Run
+To run the **terminal version** we have 2 options: 
+  1. Run it locally: You run the main.py file.
+  2. Run it in Docker (follow these steps): 
+      Step 1: You access from the terminal the directory where your code is located.
+      Step 2: You enter in the terminal **docker compose build** in order to build the image.
+      Step 3: You enter in the terminal **docker compose run --rm mini-bingo-app**.
 
+To run the **Graphical User Interface version** you must run it locally by running the gui.py file.
 
 #### Requirements
-- Python 3 installed locally
+- Python 3.8 or newer installed locally (in order to run the terminal version or GUI version)
+- Docker installed and running (in order to run the terminal version from Docker)
 
 
