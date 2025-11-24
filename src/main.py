@@ -1,5 +1,7 @@
 
-from ui.gui import MiniBingoGUI
+from ui.display import History
+from ui.display import InfoTab
+from ui.display import MiniBingo
 
 #Defining the main function hat runs the Bingo session
 def main():
@@ -54,6 +56,5 @@ def main():
 #Ensuring this block only runs if this file is executed directly.
 if __name__ == "__main__":
     #Creating a new instance of the graphical visualization.
-    app = MiniBingoGUI()
-    #Starting the event loop, keeping the window open and responsive until closed.
-    app.mainloop()
+    main()
+

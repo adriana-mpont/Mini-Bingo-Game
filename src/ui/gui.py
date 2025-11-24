@@ -1,10 +1,21 @@
-import tkinter as tk
-from tkinter import Toplevel, Label
-from src.game.card import BingoCard
-from src.game.draw import NumberDrawer
-from src.ui.display import InfoTab
+
 import random
 import time
+import os
+import sys
+import tkinter as tk
+from tkinter import Toplevel, Label
+
+#We allow the program to find the /src code automatically
+#It ensures that imports from other directories work normally
+CURRENT_DIR = os.path.dirname(__file__)
+SRC_DIR = os.path.dirname(CURRENT_DIR)
+if SRC_DIR not in sys.path:
+    sys.path.insert(0, SRC_DIR)
+
+from ui.display import InfoTab
+from game.card import BingoCard
+from game.draw import NumberDrawer
 
 #Defining a class named MiniBingo GUI inheriting from Tk (the main Tkinter window).
 class MiniBingoGUI(tk.Tk):

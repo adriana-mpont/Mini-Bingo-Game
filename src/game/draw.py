@@ -41,7 +41,7 @@ class NumberDrawer:
         #Checking if any number has been drawn yet.
         if self.drawn_numbers:
             #If numbers exist, converting them to strings, sorting them, and printing them separated by a comma.
-            print(", ".join(map(str, sorted(self.drawn_numbers))))
+            print(", ".join(map(str, self.drawn_numbers)))
         else:
             #If numbers don't exist, informing the user no draws have ocurred yet. 
             print(" No numbers drawn yet.")

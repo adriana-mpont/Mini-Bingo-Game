@@ -1,7 +1,7 @@
 import json
-from src.game.card import BingoCard
-from src.game.draw import NumberDrawer
-from dataclasses import dataclass
+from game.card import BingoCard
+from game.draw import NumberDrawer
+from dataclasses import dataclass, asdict
 from tabulate import tabulate
 from pathlib import Path
 import os
